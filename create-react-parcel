@@ -1,0 +1,53 @@
+#!/bin/sh
+
+if [ -z "$1" ]
+then
+	echo -e "No input folder supplied.\nDo you want to put the projet files here? y/N"
+	read decision
+	if [ $decision == "y" ]
+	then
+		project_folder="${PWD##*/}"
+		echo "Building project files in $PWD"
+	else
+		echo "Aborting create react parcel"
+		exit 1
+	fi
+else
+	project_folder=$1
+	mkdir $1
+	cd $1
+fi
+
+
+npm init -y
+yarn add react react-dom
+yarn add -D parcel-bundler
+
+# Add starter files
+echo '<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>React App</title>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script src="src/index.js"></script>
+	</body>
+</html>' >> index.html
+
+mkdir src
+echo 'import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+ReactDOM.render(<App />, document.getElementById("root"));' >> src/index.js
+echo 'import React from "react";
+const App = () => <div>Hello world.</div>;
+export default App;' >> src/App.js
+
+# Add start script
+sed -i "/scripts/ a\ \ \ \ \"start\": \"parcel index.html\"," package.json
+
+echo "Success! Created $project_folder at $PWD"
+echo -e "Inside that directory, run the \e[36mnpm start\e[0m command to start the development server."

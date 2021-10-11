@@ -1,5 +1,5 @@
 xrandr --output DP-1-3 --off
-sleep 0.2s
+sleep 0.5s
 
 xrandr --output DP-1-1 --off
 xrandr --output DP-1-2 --off

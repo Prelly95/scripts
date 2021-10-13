@@ -6,11 +6,15 @@ export GDK_DPI_SCALE=0.4
 export GDK_SCALE=2
 export QT_QPA_PLATFORMTHEME=qt5ct
 
+prog_bin=/usr/bin/
 # programs to start
-/usr/bin/dunst &
-polkit-dumb-agent &
+$prog_bin/dunst &
+$prog_bin/polkit-dumb-agent &
+$prog_bin/pipewire &
+$prog_bin/pipewire-pulse &
+$prog_bin/pipewire-media-session &
 
-$HOME/scripts/xinput_setup.sh &
+# $HOME/scripts/xinput_setup.sh &
 
 # Setup screen
-$HOME/scripts/init_displays.sh && $HOME/.fehbg &
+# $HOME/scripts/init_displays.sh && $HOME/.fehbg &

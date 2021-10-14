@@ -8,7 +8,7 @@ disp_count=$(echo ${connected[*]} | wc -w)
 for dis in "${disconnected[@]}"; do
 	xrandr --output $dis --off
 done
-sleep 0.5s
+sleep 1s
 for con in "${connected[@]}"; do
 	xrandr --output $con --off
 done

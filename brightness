@@ -19,6 +19,8 @@ MathBright=$(( MathBright + Right ))
 [[ "$1" == "Down" || "$1" == "-" ]] && MathBright=$(( MathBright - STEP ))
 [[ "${MathBright:0:1}" == "-" ]] && MathBright=0	# Negative not allowed
 [[ "$MathBright" -gt 100  ]] && MathBright=100		# Can't go over 1
+#Capture brightness parcent before its padded
+dispBrightness=$MathBright
 
 if [[ "${#MathBright}" -eq 3 ]] ; then
 	MathBright="$MathBright"000		# Pad with lots of zeros
@@ -27,16 +29,9 @@ else
 	MathBright="$MathBright"000		# Pad with lots of zeros
 	CurrBright=".${MathBright:0:2}"
 fi
-
 xrandr --output "$MON" --brightness "$CurrBright"	# Set new brightness
-
-# Display current brightness
-printf "Monitor $MON "
-echo $( xrandr --verbose --current | grep ^"$MON" -A5 | tail -n1 )
-
 
 # Show the brightness notification
 msgId="991159"
-bright_percent=$(echo $CurrBright | sed "s/.//")
 dunstify -a "changeBrightness" -u low -i display-brightness-high-symbolic -r "$msgId" \
--h int:value:$bright_percent "Brightness: ${bright_percent}%"
+-h int:value:$dispBrightness "Brightness: ${dispBrightness}%"

@@ -10,6 +10,9 @@ for dis in "${disconnected[@]}"; do
 	xrandr --output $dis --off
 done
 
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+
 if [ "$disp_count" -eq "1" ]; then
 	/home/pat/scripts/screenlayout/laptop.sh ${connected[@]}
 elif [ "$disp_count" -eq "2" ]; then
@@ -17,4 +20,6 @@ elif [ "$disp_count" -eq "2" ]; then
 elif [ "$disp_count" -eq "3" ]; then
 	/home/pat/scripts/screenlayout/work-setup.sh ${connected[@]}
 fi
+
+
 /home/pat/.fehbg

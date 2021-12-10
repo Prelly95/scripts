@@ -18,3 +18,7 @@ $HOME/scripts/xinput_setup.sh &
 
 # Setup screen
 $HOME/scripts/init_displays.sh && $HOME/.fehbg &
+
+# Start gnome keyring
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK

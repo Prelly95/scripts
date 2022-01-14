@@ -22,4 +22,4 @@ elif [ "$disp_count" -eq "3" ]; then
 fi
 
 
-/home/pat/.fehbg
+# /home/pat/.fehbg

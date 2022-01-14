@@ -2,7 +2,7 @@
 
 MON=$(xrandr --current| grep "eDP.* connected" | awk '{print $1}')	# Discover monitor name with: xrandr | grep " connected"
 STEP=5			# Step Up/Down brightnes by: 5 = ".05", 10 = ".10", etc.
-
+MINBRIGHTNESS=10
 if ! [[ "$1" == "Up" || "$1" == "+" || "$1" == "Down" ||  "$1" == "-" ]]
 	then
 	if ! [[ "$1" =~ ^[0-9]+$ ]]
@@ -28,14 +28,17 @@ else
 	[[ "${#Right}" -eq 1 ]] && Right="$Right"0			# 0.5 becomes "50"
 	[[ "${#Right}" -eq 3 ]] && Right=${Right:0:2}		# 0.050 becomes "05"
 	MathBright=$(( MathBright + Right ))
+	echo $MathBright
 
 	[[ "$1" == "Up" || "$1" == "+" ]] && MathBright=$(( MathBright + STEP ))
 	[[ "$1" == "Down" || "$1" == "-" ]] && MathBright=$(( MathBright - STEP ))
 fi
 
-[[ "${MathBright:0:1}" == "-" ]] && MathBright=0	# Negative not allowed
-[[ "$MathBright" -gt 100  ]] && MathBright=100		# Can't go over 1
-[[ "$MathBright" -lt $STEP ]] && MathBright=0$STEP			# Can't go below STEP
+[[ "${MathBright:0:1}" == "-" ]] && MathBright=0						# Negative not allowed
+[[ "$MathBright" -gt 100  ]] && MathBright=100							# Can't go over 1
+[[ "$MathBright" -le $MINBRIGHTNESS ]] && MathBright=$MINBRIGHTNESS		# Can't go below MINBRIGHTNESS
+[[ "$MathBright" -lt 10 ]] && MathBright=0$MathBright					# Can't go below STEP
+
 
 # #Capture brightness parcent before its padded
 dispBrightness=$MathBright
@@ -43,7 +46,6 @@ dispBrightness=$MathBright
 if [[ "$MathBright" -eq 100 ]] ; then
 	CurrBright=1
 else
-	echo $MathBright
 	MathBright="$MathBright"000		# Pad with lots of zeros
 	CurrBright=".${MathBright:0:2}"
 fi

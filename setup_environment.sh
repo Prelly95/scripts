@@ -9,7 +9,7 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 t=$(date | awk '{print $5}')
 hm=$(echo $t | cut -d':' -f1)$(echo $t | cut -d':' -f2)
 if [[ $hm -ge 1930 ]]; then
-	sct 3500 && brillo -S 20
+	sct 3400 && brillo -S 20
 else
 	sct && brillo -S 100
 fi

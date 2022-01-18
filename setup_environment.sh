@@ -17,7 +17,7 @@ $prog_bin/pipewire-media-session &
 $HOME/scripts/xinput_setup.sh &
 
 # Setup screen
-$HOME/scripts/init_displays.sh && $HOME/.fehbg &
+$HOME/scripts/init_displays.sh &
 
 # Start gnome keyring
 eval $(gnome-keyring-daemon --start)

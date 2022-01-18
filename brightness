@@ -1,17 +1,14 @@
 #!/bin/bash
 
-STEP=2
-b=$(brillo -G)
-Left=${b%%"."*}
-if [[ $Left -lt 10 ]]; then
-	$(brillo -S 11)
-	echo "Brightness set too low: $Left"
-	exit 1
-fi
+STEP=5
+
 [[ "$1" == "Up" || "$1" == "+" ]] && d="-A $STEP"
 [[ "$1" == "Down" || "$1" == "-" ]] && d="-U $STEP"
 
-brillo -s intel_backlight -q $d
+brillo -s intel_backlight -u 150000 -q $d
+
+b=$(brillo -G)
+Left=${b%%"."*}
 
 # Show the brightness notification
 msgId="991159"

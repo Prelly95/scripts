@@ -20,7 +20,7 @@ $prog_bin/dunst &
 $prog_bin/polkit-dumb-agent &
 $prog_bin/pipewire &
 $prog_bin/pipewire-pulse &
-$prog_bin/pipewire-media-session &
+$prog_bin/wireplumber &
 
 $HOME/scripts/xinput_setup.sh &
 
@@ -28,5 +28,9 @@ $HOME/scripts/xinput_setup.sh &
 $HOME/scripts/init_displays.sh &
 
 # Start gnome keyring
-eval $(gnome-keyring-daemon --start)
-export SSH_AUTH_SOCK
+
+eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
+export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
+
+# init keyring
+# export keyring

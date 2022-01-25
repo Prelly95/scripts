@@ -9,5 +9,4 @@ xrandr \
 # --output $2 --pos 3840x0 --rotate normal  --primary \
 # --output $3 --pos 7680x-850 --rotate left
 
-feh --no-fehbg --bg-center "$HOME/scripts/screenlayout/bg_2.png" "$HOME/scripts/screenlayout/bg_1.png" "$HOME/scripts/screenlayout/bg_3.png"
 notify-send "Display: WORK"

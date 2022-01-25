@@ -6,14 +6,6 @@ export GDK_DPI_SCALE=0.4
 export GDK_SCALE=2
 export QT_QPA_PLATFORMTHEME=qt5ct
 
-t=$(date | awk '{print $5}')
-hm=$(echo $t | cut -d':' -f1)$(echo $t | cut -d':' -f2)
-if [[ $hm -ge 1930 ]]; then
-	sct 2800 && brillo -S 25
-else
-	sct && brillo -S 100
-fi
-
 prog_bin=/usr/bin
 # programs to start
 $prog_bin/dunst &

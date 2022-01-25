@@ -21,5 +21,12 @@ elif [ "$disp_count" -eq "3" ]; then
 	/home/pat/scripts/screenlayout/work-setup.sh ${connected[@]}
 fi
 
+t=$(date | awk '{print $5}')
+hm=$(echo $t | cut -d':' -f1)$(echo $t | cut -d':' -f2)
+if [[ $hm -ge 1930 ]]; then
+	sct 2800 && brillo -S 25
+else
+	sct && brillo -S 100
+fi
 
-# /home/pat/.fehbg
+feh --no-fehbg --bg-center "$HOME/scripts/screenlayout/bg_2.png" "$HOME/scripts/screenlayout/bg_1.png" "$HOME/scripts/screenlayout/bg_3.png"

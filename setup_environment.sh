@@ -2,9 +2,10 @@
 
 # Display Variables
 export EDITOR=code-insiders
-export GDK_DPI_SCALE=0.4
-export GDK_SCALE=2
+# export GDK_DPI_SCALE=0.4
+# export GDK_SCALE=2
 export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
 prog_bin=/usr/bin
 # programs to start

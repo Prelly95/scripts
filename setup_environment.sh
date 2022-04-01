@@ -21,9 +21,11 @@ $HOME/scripts/xinput_setup.sh &
 $HOME/scripts/init_displays.sh &
 
 # Start gnome keyring
+# source /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 
 eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
 export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
+mkdir -p "$HOME"/.local/share/keyrings
 
 # init keyring
 # export keyring

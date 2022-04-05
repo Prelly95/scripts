@@ -21,7 +21,7 @@ elif [ "$disp_count" -eq "3" ]; then
 	/home/pat/scripts/screenlayout/work-setup.sh ${connected[@]}
 fi
 
-feh --no-fehbg --bg-center "$HOME/scripts/screenlayout/bg_2.png" "$HOME/scripts/screenlayout/bg_1.png" "$HOME/scripts/screenlayout/bg_3.png"
+feh --no-fehbg --bg-center "$HOME/scripts/screenlayout/bg_2.png" "$HOME/scripts/screenlayout/bg_1.png" --bg-max "$HOME/scripts/screenlayout/bg_3.png"
 
 t=$(date | awk '{print $5}')
 hm=$(echo $t | cut -d':' -f1)$(echo $t | cut -d':' -f2)

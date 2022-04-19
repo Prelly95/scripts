@@ -53,3 +53,5 @@ dkms.conf
 
 # ignore images
 **/*.png
+
+/sb-*

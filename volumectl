@@ -4,12 +4,18 @@
 # Arbitrary but unique message id
 msgId="991049"
 # Query amixer for the current volume and whether or not the speaker is muted
-vol_cmd=$(pactl get-sink-volume @DEFAULT_SINK@)
-volume="$(echo $vol_cmd | awk '{print $5}' | sed 's/[^0-9]*//g')"
-mute_cmd=$(pactl get-sink-mute @DEFAULT_SINK@)
-mute="$(echo $mute_cmd | awk '{print $2}')"
+volume=$(echo $(pactl get-sink-volume @DEFAULT_SINK@) | awk '{print $5}' | sed 's/[^0-9]*//g')
+mute="$(echo $(pactl get-sink-mute @DEFAULT_SINK@) | awk '{print $2}')"
 
 case $1 in
+"get")
+	if [[ "$mute" == "yes" ]]; then
+		echo "mute"
+	else
+		echo "$volume"
+	fi
+	exit 0
+	;;
 "mute")
 	pactl set-sink-mute @DEFAULT_SINK@ 1 > /dev/null
 	;;
@@ -23,17 +29,18 @@ case $1 in
 	;;
 
 *)
+	pactl set-sink-mute @DEFAULT_SINK@ 0 > /dev/null
 	pactl set-sink-volume @DEFAULT_SINK@ $1 > /dev/null
-
-	vol_cmd=$(pactl get-sink-volume @DEFAULT_SINK@)
-	volume="$(echo $vol_cmd | awk '{print $5}' | sed 's/[^0-9]*//g')"
-
 	if [[ $volume -ge 100 ]]; then
 		pactl set-sink-volume @DEFAULT_SINK@ 100% > /dev/null
 		volume=100
 	fi
 	;;
 esac
+
+# get new volume
+volume=$(echo $(pactl get-sink-volume @DEFAULT_SINK@) | awk '{print $5}' | sed 's/[^0-9]*//g')
+mute="$(echo $(pactl get-sink-mute @DEFAULT_SINK@) | awk '{print $2}')"
 
 if [[ $volume == 0 || "$mute" == "yes" ]]; then
 	# Show the sound muted notification

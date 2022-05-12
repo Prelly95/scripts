@@ -2,6 +2,7 @@
 
 # Display Variables
 export EDITOR=code-insiders
+export TERMINAL=alacritty
 # export GDK_DPI_SCALE=0.4
 # export GDK_SCALE=2
 export QT_QPA_PLATFORMTHEME=qt5ct
@@ -14,6 +15,8 @@ $prog_bin/polkit-dumb-agent &
 $prog_bin/pipewire &
 $prog_bin/pipewire-pulse &
 $prog_bin/wireplumber &
+
+# /usr/local/bin/dwmblocks &
 
 $HOME/scripts/xinput_setup.sh &
 

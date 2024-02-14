@@ -1,3 +1,4 @@
-xinput --set-prop "SYNA2393:00 06CB:7A13 Touchpad" "libinput Horizontal Scroll Enabled" 1
-xinput --set-prop "SYNA2393:00 06CB:7A13 Touchpad" "libinput Tapping Enabled" 1
-/home/pat/scripts/set_mouse_speed.sh
+#!/bin/sh
+xinput --set-prop "VEN_04F3:00 04F3:32AA Touchpad" "libinput Horizontal Scroll Enabled" 1
+xinput --set-prop "VEN_04F3:00 04F3:32AA Touchpad" "libinput Tapping Enabled" 1
+/home/patrick/Tools/scripts/set_mouse_speed.sh

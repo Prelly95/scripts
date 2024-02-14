@@ -1,5 +1,4 @@
-#!/bin/sh
-# changeVolume
+#!/bin/bash
 
 # Arbitrary but unique message id
 msgId="991049"
@@ -51,5 +50,34 @@ else
 	-h int:value:$volume "Volume: ${volume}%"
 fi
 
-# Play the volume changed sound
+
+
+##############################################################
+# Play the notification sound on last instance of the script #
+# avoids sound spamming the speaker when using a voluem knob #
+##############################################################
+
+refresh_time=0.2
+# For bash, uses temporary files
+
+script_name="volumectl"
+
+IFS=" " read -r -a running_pids <<< "$(pidof -x $script_name)"
+running_count=${#running_pids[@]}
+
+if [ "$running_count" -gt 1 ]; then
+    sleep $refresh_time
+    exit 0
+fi
+
+sleep $refresh_time
+IFS=" " read -r -a running_pids <<< "$(pidof -x $script_name)"
+running_count=${#running_pids[@]}
+
+while [ "$running_count" -gt 1 ]; do
+    IFS=" " read -r -a running_pids <<< "$(pidof -x $script_name)"
+	running_count=${#running_pids[@]}
+done
+
 canberra-gtk-play -i audio-volume-change -d "changeVolume"
+exit 0

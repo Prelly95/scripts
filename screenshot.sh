@@ -13,4 +13,5 @@ destination="$HOME/Pictures/Screenshots/${name}_shotgun.png"
 
 shotgun "${sel[@]}" "$destination"
 xclip -selection clipboard -t image/png -i "$destination"
-feh -d "$destination"
+kolourpaint "$destination"
+xclip -selection clipboard -t image/png -i "$destination"

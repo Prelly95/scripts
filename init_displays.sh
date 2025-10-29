@@ -7,21 +7,28 @@ fi
 
 sleep 1s
 disp_info=$(xrandr)
-disconnected=($(printf "$disp_info" | grep "\bdisconnected\b" | awk '{print $1;}'))
-connected=($(printf "$disp_info" | grep "\bconnected\b" | awk '{print $1;}'))
-disp_count=$(echo ${connected[*]} | wc -w)
+# Use mapfile to populate arrays from command output
+# Process substitution < <(...) is used instead of pipe to mapfile, which allows the command to run in the current shell context rather than a subshell.
+mapfile -t disconnected < <(printf "%s" "$disp_info" | grep "\bdisconnected\b" | awk '{print $1;}')
+mapfile -t connected < <(printf "%s" "$disp_info" | grep "\bconnected\b" | awk '{print $1;}')
+disp_count=${#connected[@]}
 
 # Turn off all displays
 for dis in "${disconnected[@]}"; do
 	xrandr --output "$dis" --off
 done
 
-
 if [ "$disp_count" -eq "1" ]; then
-	~/.screenlayout/laptop_layout.sh
+    echo "Setting up as Laptop"
+	"$HOME"/Tools/scripts/screenlayout/laptop_layout.sh
     feh --no-fehbg --bg-center "$HOME/Tools/scripts/screenlayout/bg-laptop.jpeg"
+elif [ "$disp_count" -eq "2" ]; then
+    echo "Setting up at Home"
+	"$HOME"/Tools/scripts/screenlayout/home_layout.sh
+    feh --no-fehbg --bg-center --no-xinerama "$HOME/Tools/scripts/screenlayout/bg-home.jpeg"
 elif [ "$disp_count" -eq "3" ]; then
-	~/.screenlayout/desk_layout.sh
+    echo "Setting up at Work"
+	"$HOME"/Tools/scripts/screenlayout/desk_layout.sh
     feh --no-fehbg --bg-center --no-xinerama "$HOME/Tools/scripts/screenlayout/bg-multi.jpeg"
 fi
 

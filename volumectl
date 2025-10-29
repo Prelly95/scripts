@@ -37,6 +37,9 @@ case $1 in
 	;;
 esac
 
+# Send signal to dwmblocks
+pkill -RTMIN+10 dwmblocks
+
 # get new volume
 volume=$(echo $(pactl get-sink-volume @DEFAULT_SINK@) | awk '{print $5}' | sed 's/[^0-9]*//g')
 mute="$(echo $(pactl get-sink-mute @DEFAULT_SINK@) | awk '{print $2}')"

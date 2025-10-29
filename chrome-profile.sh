@@ -1,5 +1,7 @@
+#!/bin/sh
+
 choice="DroneShield\nPat"
-prof=$(printf $choice | dmenu -i -p "Google Chrome Profile")
+prof=$(echo $choice | dmenu -i -p "Google Chrome Profile")
 
 case $prof in
 	"DroneShield")

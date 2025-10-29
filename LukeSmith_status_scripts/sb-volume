@@ -18,4 +18,4 @@ else
         echo 🔇 && exit
 fi
 
-echo "$icon$vol%"
+echo "$vol%$icon"
